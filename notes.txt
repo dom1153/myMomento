@@ -1,0 +1,8 @@
+Commands
+npx create-react-app my-app --template cra-template-pwa
+
+## npm install -g firebase-tools
+## firebase login
+firebase init hosting
+npm run build
+firebase deploy
