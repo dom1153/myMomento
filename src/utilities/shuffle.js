@@ -1,3 +1,6 @@
+// for debugging
+const DO_SHUFFLE = 1;
+
 function shuffle() {
     const assets = [
         { image: '/assets/css.png' },
@@ -10,10 +13,13 @@ function shuffle() {
         { image: '/assets/ts.png' },
     ];
     let lst = [...assets, ...assets]; // need each card twice
-    lst.sort(() => Math.random()); // shuffle
+    if (DO_SHUFFLE) {
+        lst.sort(() => Math.random()); // shuffle
+    }
     // spread is needed here else we get {{ image: 'blah' } , id: Math.random()}
     return lst.map((card) => ({ ...card, id: Math.random()}));
 
+    // // short version
     // return [...assets, ...assets]
     //     .sort(() => (Math.random() - 0.5))
     //     .map((card) => ({...card, id: Math.random()}));
