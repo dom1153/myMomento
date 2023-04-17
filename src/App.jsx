@@ -12,6 +12,7 @@ function App() {
         {cards.map((c) => {
           // parameterize
           const { image, id, isMatched } = c;
+          console.log(image, id, c);
           return (
             <Card
               key={id}
