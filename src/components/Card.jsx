@@ -1,7 +1,9 @@
+const SHOW_ANSWER = false;
+
 function Card({ image, selected, onClick }) {
   return (
     <div className="card">
-      <div className={selected && "selected"}>
+      <div className={(selected || SHOW_ANSWER) && "selected"}>
         <img alt="" src={image} className="card-face" />
         <img
           alt=""

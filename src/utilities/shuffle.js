@@ -1,5 +1,5 @@
 // for debugging
-const DO_SHUFFLE = 1;
+const DO_SHUFFLE = true;
 
 function shuffle() {
     const assets = [
@@ -14,7 +14,10 @@ function shuffle() {
     ];
     let lst = [...assets, ...assets]; // need each card twice
     if (DO_SHUFFLE) {
-        lst.sort(() => Math.random()); // shuffle
+        lst.sort(() => Math.random() - 0.5); // shuffle
+        // sort looks for >0 <0 or ==0 to swap items.
+        // .random() produces 0 to 1
+        // .random() - 0.5 produces positive and negative values
     }
     // spread is needed here else we get {{ image: 'blah' } , id: Math.random()}
     return lst.map((card) => ({ ...card, id: Math.random()}));
