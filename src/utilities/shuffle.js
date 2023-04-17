@@ -9,7 +9,7 @@ function shuffle() {
         { image: '/assets/js.png' },
         { image: '/assets/next_light.png' },
         { image: '/assets/node.png' },
-        { image: '/assets/react.png' },
+        { image: '/assets/dart.png' },
         { image: '/assets/ts.png' },
     ];
     let lst = [...assets, ...assets]; // need each card twice

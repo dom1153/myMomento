@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import Card from './components/Card';
+import Header from './components/Header';
 import shuffle from './utilities/shuffle';
+import useAppBadge from './hooks/useAppBadge';
 import './App.css';
 
 function App() {
@@ -9,8 +11,16 @@ function App() {
   const [pickTwo, setPickTwo] = useState(null); // Second selection
   const [disableUserInput, setDisabled] = useState(false); // Delay handler
   const [wins, setWins] = useState(0); // Win streak
+  const [incrBadge, clearBadge] = useAppBadge();
 
-  const handleTurn = () => {
+  const handleNewGame = () => {
+    setWins(0);
+    clearBadge();
+    resetTurn();
+    setCards(shuffle);
+  }
+  
+  const resetTurn = () => {
     setPickOne(null);
     setPickTwo(null);
     setDisabled(false);
@@ -36,13 +46,13 @@ function App() {
             }
           });
         });
-        handleTurn();
+        resetTurn();
       } else {
         // Prevent new selections until after delay
         setDisabled(true);
         // Add delay between selections
         pickTimer = setTimeout(() => {
-          handleTurn();
+          resetTurn();
         }, 1000);
       }
     }
@@ -61,10 +71,11 @@ function App() {
     if (cards.length && checkWin.length < 1) {
       console.log('You win!');
       setWins(wins + 1);
-      handleTurn();
+      incrBadge();
+      resetTurn();
       setCards(shuffle);
     }
-  }, [cards, wins]);
+  }, [cards, incrBadge, wins]);
 
   // Handle card selection
   const handleClick = (card) => {
@@ -80,11 +91,15 @@ function App() {
 
   return (
     <>
+      <Header 
+        handleNewGame={handleNewGame}
+        wins={wins}
+      />
       <div className="grid">
         {cards.map((c) => {
           // parameterize
           const { image, id, isMatched } = c;
-          console.log(image, id, c);
+          // console.log(image, id, c);
           return (
             <Card
               key={id}
